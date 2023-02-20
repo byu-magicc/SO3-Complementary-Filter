@@ -1,0 +1,6 @@
+cf_ros: 
+  ros__parameters:
+    gyroBias0: [0.01, 0.01, 0.01]
+    accelGain: 0.1
+    gyroGain: -90.5
+    biasGain: 0.005
