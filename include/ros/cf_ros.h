@@ -9,6 +9,7 @@
 #include "sensor_msgs/msg/imu.hpp"
 #include "geometry_msgs/msg/quaternion_stamped.hpp"
 #include "geometry_msgs/msg/vector3.hpp"
+#include "ublox_read_2/msg/rel_pos.hpp"
 
 
 namespace cf {
@@ -27,6 +28,7 @@ private:
 
     // Subscribers
     rclcpp::Subscription<sensor_msgs::msg::Imu>::SharedPtr imuSub_;
+    rclcpp::Subscription<ublox_read_2::msg::RelPos>::SharedPtr compassSub_;
 
     // Publishers
     rclcpp::Publisher<geometry_msgs::msg::QuaternionStamped>::SharedPtr attitudePub_;
@@ -43,6 +45,7 @@ private:
 
     // sensor callback
     void imu_callback(const sensor_msgs::msg::Imu::SharedPtr msg);
+    void compass_callback(const ublox_read_2::msg::RelPos::SharedPtr msg);
 
     // utils
     // Eigen::Matrix4d get_transform_from_odom_msg(const apriltag_msgs::msg::AprilTagDetectionArray::SharedPtr msg);

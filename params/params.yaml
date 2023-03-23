@@ -4,3 +4,5 @@ cf_ros:
     accelGain: 0.1
     gyroGain: -90.5
     biasGain: 0.005
+    compassGain: -0.1
+    useCompass: true

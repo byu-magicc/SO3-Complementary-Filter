@@ -21,6 +21,7 @@ find_package(ament_cmake_python REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(rclpy REQUIRED)
 find_package(sensor_msgs REQUIRED)
+find_package(ublox_read_2 REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 
@@ -45,7 +46,7 @@ add_executable(cf_ros
   src/ros/cf_ros_init.cpp 
   src/ros/utils.cpp)
   
-ament_target_dependencies(cf_ros rclcpp sensor_msgs geometry_msgs Eigen3)
+ament_target_dependencies(cf_ros rclcpp sensor_msgs geometry_msgs ublox_read_2 Eigen3)
 
 target_link_libraries(cf_ros so3_cf)
 target_include_directories(cf_ros

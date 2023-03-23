@@ -8,7 +8,11 @@ namespace cf
     void CF_ROS::init_subs_and_pubs()
     {
 
-        imuSub_ = this->create_subscription<sensor_msgs::msg::Imu>("/camera/imu", 10, std::bind(&CF_ROS::imu_callback, this, _1));
+        imuSub_ = this->create_subscription<sensor_msgs::msg::Imu>("/imu", 10, std::bind(&CF_ROS::imu_callback, this, _1));
+        
+        bool useCompass = this->get_parameter("useCompass").as_bool();
+        if (useCompass)
+            compassSub_ = this->create_subscription<ublox_read_2::msg::RelPos>("/base/compass/RelPos", 10, std::bind(&CF_ROS::compass_callback, this, _1));
   
         // Publishers
         attitudePub_ = this->create_publisher<geometry_msgs::msg::QuaternionStamped>("/cf/attitude", 1);
@@ -24,6 +28,8 @@ namespace cf
         this->declare_parameter("gyroGain", 0.1);
         this->declare_parameter("accelGain", 0.1);
         this->declare_parameter("biasGain", 0.1);
+        this->declare_parameter("compassGain", 0.1);
+        this->declare_parameter("useCompass", false);
 
     }
 
@@ -34,7 +40,9 @@ namespace cf
         cfParams.gyroGain = this->get_parameter("gyroGain").as_double();
         cfParams.accelGain = this->get_parameter("accelGain").as_double();
         cfParams.biasGain = this->get_parameter("biasGain").as_double();
-        std::cerr << "GAINS\n" << "Gyro: " << cfParams.gyroGain<< " Accel: " << cfParams.accelGain<< " Bias: " << cfParams.biasGain << "\n\n";
+        cfParams.compassGain = this->get_parameter("compassGain").as_double();
+        std::cerr << "GAINS\n" << "Gyro: " << cfParams.gyroGain<< " Accel: " << cfParams.accelGain
+            << " Bias: " << cfParams.biasGain << " compass: " << cfParams.compassGain <<"\n\n";
 
         std::vector<double> paramPlaceholder;
 

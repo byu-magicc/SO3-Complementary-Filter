@@ -19,6 +19,7 @@
 
   <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
+  <depend>ublox_read_2</depend>
   <depend>geometry_msgs</depend>
   <depend>Eigen3</depend>
 

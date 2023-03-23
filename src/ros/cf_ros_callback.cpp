@@ -23,4 +23,9 @@ namespace cf
 
         if (success) publish_estimate();
     }
+    
+    void CF_ROS::compass_callback(const ublox_read_2::msg::RelPos::SharedPtr msg)
+    {
+        compFilter_->compass_update(msg->rel_pos_heading);
+    }
 }
